@@ -17,4 +17,21 @@ attr_reader(:c_name, :id)
     end
     cities
   end
+
+  define_singleton_method(:find) do |id|
+    @id = id
+    result = DB.exec("SELECT * FROM cities WHERE id = #{@id};")
+    @c_name = result.first().fetch("c_name")
+    City.new({c_name: @c_name, id: @id})
+  end
+
+  define_method(:save) do
+    result = DB.exec("INSERT INTO cities (c_name) VALUES ('#{@c_name}') RETURNING id;")
+    @id = result.first().fetch("id").to_i
+  end
+
+  define_method(:==) do |dup_eq|
+    self.c_name().==(dup_eq.c_name()).&(self.id().==(dup_eq.id()))
+  end
+
 end

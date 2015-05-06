@@ -11,7 +11,7 @@ describe(City) do
 
   describe("#id") do
     it("returns the id") do
-      city = City.new(c_name: "Portland", id: 1)
+      city = City.new({c_name: "Portland", id: 1})
       expect(city.id()).to(eq(1))
     end
   end
@@ -21,4 +21,23 @@ describe(City) do
       expect(City.all()).to(eq([]))
     end
   end
+
+  describe(".find") do
+    it("returns a city by its ID number") do
+      test_city = City.new({c_name: "New York", id: nil})
+      test_city.save()
+      test_city2 = City.new({c_name: "Portland", id: nil})
+      test_city.save()
+      expect(City.find(test_city.id())).to(eq(test_city))
+    end
+  end
+
+  describe('#==') do
+    it("is the same if the city name and id is the same") do
+      city = City.new({c_name: "Baltimore", id: nil})
+      city2 = City.new({c_name: "Baltimore", id: nil})
+      expect(city).to(eq(city2))
+    end
+  end
+
 end
