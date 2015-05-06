@@ -61,13 +61,29 @@ attr_reader(:t_name, :id)
   end
 
   define_method(:time) do |city_id|
-    results = DB.exec("SELECT time FROM stops WHERE train_ids = #{self.id()}} AND city_ids = #{city_id};")
+    results = DB.exec("SELECT time FROM stops WHERE train_ids = #{self.id()} AND city_ids = #{city_id};")
     stop_time = results.first().fetch("time").to_i()
     stop_time
   end
 
-  define_method(:add_time) do |time, city_id|
-    id = self.id()
-    DB.exec("UPDATE stops SET time =#{time} WHERE train_ids = #{id}} AND city_ids = #{city_id};")
+  define_method(:add_time) do |attributes|
+    @time = attributes.fetch(:time)
+    @city_id = attributes.fetch(:city_id)
+    @id = self.id()
+    DB.exec("UPDATE stops SET time =#{@time} WHERE train_ids = #{@id} AND city_ids = #{@city_id};")
+  end
+
+  define_method(:time_table) do
+    times = []
+    cities = self.cities()
+    cities.each() do |city|
+      c_id = city.id()
+      result = DB.exec("SELECT * FROM cities WHERE id = #{c_id};")
+      city_id = result.first().fetch("id")
+      city_name = result.first.fetch("c_name")
+      times.push(city_name)
+      times.push(self.time(city_id))
+    end
+    times
   end
 end
