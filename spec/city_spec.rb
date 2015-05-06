@@ -40,4 +40,12 @@ describe(City) do
     end
   end
 
+  dsecribe("#update") do
+    it("lets you update cities in the database") do
+      city = City.new({c_name: "Baltimore", id: nil})
+      city.save()
+      city.update({c_name: "Portland"})
+      expect(city.c_name()).to(eq("Portland"))
+    end
+  end
 end

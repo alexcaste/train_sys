@@ -34,4 +34,9 @@ attr_reader(:c_name, :id)
     self.c_name().==(dup_eq.c_name()).&(self.id().==(dup_eq.id()))
   end
 
+  define_method(:update) do |attributes|
+    @c_name = attributes.fetch(:c_name, @c_name)
+    @id = self.id()
+    DB.exec("UPDATE cities SET name ='#{@name}' WHERE id = #{@id}l;")
+  end
 end
