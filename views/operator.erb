@@ -18,6 +18,15 @@
   <% else %>
     <p>We have run out of trains.  Please insert 25 cents to continue or add a train.</p>
 <% end %>
+<br>
+<br>
+
+<form action="/trains" method="post">
+  <label for="t_name">Train name:</label>
+  <input id="t_name" name="t_name" type="text">
+
+  <button type="submit">Add Train</button>
+</form>
 
 <hr>
 
@@ -35,3 +44,11 @@
   <% else %>
     <p>The apocolypse is upon us becuase there are no cities to show. Flee mortal while you still can.</p>
 <% end %>
+<br>
+<br>
+<form action="/cities" method="post">
+  <label for="c_name">City name:</label>
+  <input id="c_name" name="c_name" type="text">
+
+  <button type="submit">Add City</button>
+</form>
