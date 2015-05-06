@@ -1,0 +1,37 @@
+<h1> You are in command of all the trains.</h1>
+<h3> What is your bidding, my master?</h3>
+
+<p><a href = "">Add new train</a></p>
+<p><a href = "">Add new city</a></p>
+
+<h3>Here be thy trains</h3>
+
+<% if @trains.any? %>
+  <p>Click on train to see the cities they go to:</p>
+
+  <ul>
+    <% @trains.each do |train| %>
+    <li><a href="/trains/<%= train.id() %>"><%= train.t_name() %></a></li>
+    <% end %>
+  </ul>
+
+  <% else %>
+    <p>We have run out of trains.  Please insert 25 cents to continue or add a train.</p>
+<% end %>
+
+<hr>
+
+<h3>Pick a city, any city...</h3>
+
+<% if @cities.any? %>
+  <p>Click on city to see which trains go to it:</p>
+
+  <ul>
+    <% @cities.each do |city| %>
+    <li><a href="/cities/<%= city.id() %>"><%= city.c_name() %></a></li>
+    <% end %>
+  </ul>
+
+  <% else %>
+    <p>The apocolypse is upon us becuase there are no cities to show. Flee mortal while you still can.</p>
+<% end %>

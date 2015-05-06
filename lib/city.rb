@@ -46,6 +46,7 @@ attr_reader(:c_name, :id)
 
   define_method(:delete) do
     DB.exec("DELETE FROM cities WHERE id =#{self.id()};")
+    DB.exec("DELETE FROM stops WHERE city_ids =#{self.id()};")
   end
 
   define_method(:trains) do
