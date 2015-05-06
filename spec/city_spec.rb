@@ -40,12 +40,47 @@ describe(City) do
     end
   end
 
-  dsecribe("#update") do
+  describe("#update") do
     it("lets you update cities in the database") do
       city = City.new({c_name: "Baltimore", id: nil})
       city.save()
       city.update({c_name: "Portland"})
       expect(city.c_name()).to(eq("Portland"))
+    end
+
+    it("lets you add a train to a city") do
+      city = City.new({c_name: "Baltimore", id: nil})
+      city.save()
+      concrete = Train.new({t_name: "Concrete", id: nil})
+      concrete.save()
+      rock = Train.new({t_name: "Rocks", id: nil})
+      rock.save()
+      city.update({train_ids: [concrete.id(), rock.id()]})
+      expect(city.trains()).to(eq([concrete, rock]))
+    end
+  end
+
+  describe('#trains') do
+    it("returns all of the trains in a city") do
+      city = City.new({c_name: "Baltimore", id: nil})
+      city.save()
+      concrete = Train.new({t_name: "Concrete", id: nil})
+      concrete.save()
+      rock = Train.new({t_name: "Rocks", id: nil})
+      rock.save()
+      city.update({train_ids: [concrete.id(), rock.id()]})
+      expect(city.trains()).to(eq([concrete, rock]))
+    end
+  end
+
+  describe("#delete") do
+    it("lets you delete a city from the database") do
+      city = City.new({c_name: "Baltimore", id: nil})
+      city.save()
+      city2 = City.new({c_name: "Portland", id: nil})
+      city2.save()
+      city.delete()
+      expect(City.all()).to(eq([city2]))
     end
   end
 end

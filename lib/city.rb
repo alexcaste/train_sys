@@ -37,6 +37,26 @@ attr_reader(:c_name, :id)
   define_method(:update) do |attributes|
     @c_name = attributes.fetch(:c_name, @c_name)
     @id = self.id()
-    DB.exec("UPDATE cities SET name ='#{@name}' WHERE id = #{@id}l;")
+    DB.exec("UPDATE cities SET c_name ='#{@c_name}' WHERE id = #{@id};")
+
+    attributes.fetch(:train_ids, []).each() do |train_id|
+      DB.exec("INSERT INTO stops (train_ids, city_ids) VALUES (#{train_id}, #{self.id()});")
+    end
+  end
+
+  define_method(:delete) do
+    DB.exec("DELETE FROM cities WHERE id =#{self.id()};")
+  end
+
+  define_method(:trains) do
+    city_trains = []
+    results = DB.exec("SELECT train_ids FROM stops WHERE city_ids = #{self.id()};")
+    results.each() do |result|
+      train_id = result.fetch("train_ids").to_i()
+      train = DB.exec("SELECT * FROM trains WHERE id = #{train_id};")
+      t_name = train.first().fetch("t_name")
+      city_trains.push(Train.new({t_name: t_name, id: train_id}))
+    end
+    city_trains
   end
 end
