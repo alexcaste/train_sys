@@ -1,0 +1,49 @@
+<h1>Information for the city of <%= @city.c_name() %>.</h1>
+
+<%  if @city.trains().any?() %>
+
+  <h4> Oh, you want to know what trains come to the city of <%= @city.c_name() %>, eh?</h4>
+
+  <ul>
+    <% @city.trains().each() do |train| %>
+      <li>Train: <%= train.t_name() %>.  Time: <%= train.time(@city.id()) %>.</li>
+    <% end %>
+  </ul>
+
+<% else %>
+
+  <p>No one goes to this janky ass place.</p>
+
+<% end %>
+
+<hr>
+<% if @trains.any?() %>
+<h4>Add a stop for <%= @city.c_name() %> by selecting a train and inputing a time.</h4>
+
+  <form action="/city/<%= @city.id() %>" method="post">
+    <input type ="hidden" name = "_method" value="patch">
+
+      <label for="train_id">Select a Train</label>
+      <select id='train_id' name='train_id' type='text'>
+        <% @trains.each() do |train| %>
+          <option value="<%= train.id()%>"> <%= train.t_name() %> </option>
+        <% end %>
+      </select>
+      <label for="time">Add time</label>
+      <input id="time" name="time" type="text">
+
+      <button type = "submit"> Add </button>
+  </form>
+<% end %>
+<hr>
+<h4>Change the name of <%= @city.c_name() %>.</h4>
+<form action="/city_edit/<%= @city.id() %>" method="post">
+  <input type ="hidden" name = "_method" value="patch">
+  <label for="c_name">Change name</label>
+  <input id="c_name" name="c_name" type="text">
+
+  <button type = "submit">Change</button>
+</form>
+
+<hr>
+<a href="/operator">Return to the Operator page</a>

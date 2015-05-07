@@ -1,0 +1,48 @@
+<h1>Information for the <%= @train.t_name() %> Line.</h1>
+
+<%  if @train.cities().any?() %>
+
+  <h4> Fine, I'll tell you which cities the <%= @train.t_name() %> Line goes to: </h4>
+
+  <ul>
+    <% @train.cities().each() do |city| %>
+      <li>City: <%= city.c_name() %>.  Time: <%= @train.time(city.id()) %>.</li>
+    <% end %>
+  </ul>
+
+<% else %>
+
+  <p>This train don't go nowhere, no how.</p>
+
+<% end %>
+<hr>
+<% if @cities.any?() %>
+<h4>Add a stop to the <%= @train.t_name() %> Line by selecting a city and inputing a time.</h4>
+
+  <form action="/train/<%= @train.id() %>" method="post">
+    <input type ="hidden" name = "_method" value="patch">
+
+      <label for="city_id">Select a City</label>
+      <select id='city_id' name='city_id' type='text'>
+        <% @cities.each() do |city| %>
+          <option value="<%= city.id()%>"> <%= city.c_name() %> </option>
+        <% end %>
+      </select>
+      <label for="time">Add time</label>
+      <input id="time" name="time" type="text">
+
+      <button type = "submit"> Add </button>
+  </form>
+<% end %>
+<hr>
+<h4>Change the name of the <%= @train.t_name() %> Line.</h4>
+<form action="/train_edit/<%= @train.id() %>" method="post">
+  <input type ="hidden" name = "_method" value="patch">
+  <label for="t_name">Change name</label>
+  <input id="t_name" name="t_name" type="text">
+
+  <button type = "submit">Change</button>
+</form>
+
+<hr>
+<a href="/operator">Return to the Operator page</a>

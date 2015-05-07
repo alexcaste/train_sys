@@ -13,14 +13,18 @@
 
   <ul>
     <% @trains.each do |train| %>
-    <li><a href="/trains/<%= train.id() %>"><%= train.t_name() %></a></li>
+    <li><a href="/trains/<%= train.id() %>"><%= train.t_name() %></a>
+      <form action ="/trains/<%= train.id() %>" method="post">
+        <input name ="_method" type ="hidden" value="delete">
+        <button type = "submit">Delete</button>
+      </form>
+    </li>
     <% end %>
   </ul>
 
   <% else %>
     <p>We have run out of trains.  Please insert 25 cents to continue or add a train.</p>
 <% end %>
-<br>
 <br>
 
 <form action="/trains" method="post">
@@ -39,7 +43,12 @@
 
   <ul>
     <% @cities.each do |city| %>
-    <li><a href="/cities/<%= city.id() %>"><%= city.c_name() %></a></li>
+    <li><a href="/cities/<%= city.id() %>"><%= city.c_name() %></a>
+      <form action ="/cities/<%= city.id() %>" method="post">
+        <input name ="_method" type ="hidden" value="delete">
+        <button type = "submit">Delete</button>
+      </form>
+    </li>
     <% end %>
   </ul>
 
@@ -47,10 +56,11 @@
     <p>The apocolypse is upon us because there are no cities to show. Flee mortal while you still can.</p>
 <% end %>
 <br>
-<br>
 <form action="/cities" method="post">
   <label for="c_name">City name:</label>
   <input id="c_name" name="c_name" type="text">
 
   <button type="submit">Add City</button>
 </form>
+
+<a href = "/">Home</a>
