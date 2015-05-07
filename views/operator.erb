@@ -1,12 +1,14 @@
-<h1> You are in command of all the trains.</h1>
-<h3> What is your bidding, my master?</h3>
+<h1>Train Master 4000!!<h1>
+<hr>
 
-<p><a href = "">Add new train</a></p>
-<p><a href = "">Add new city</a></p>
+<h3> You are in command of all the trains.
+  <p>What is your bidding, my master?</p>
+</h3>
+<br>
+<hr>
+<h4>Here be thy trains</h4>
 
-<h3>Here be thy trains</h3>
-
-<% if @trains.any? %>
+<% if @trains.any?() %>
   <p>Click on train to see the cities they go to:</p>
 
   <ul>
@@ -27,12 +29,12 @@
 
   <button type="submit">Add Train</button>
 </form>
-
+<br>
 <hr>
 
-<h3>Pick a city, any city...</h3>
+<h4>Pick a city, any city...</h4>
 
-<% if @cities.any? %>
+<% if @cities.any?() %>
   <p>Click on city to see which trains go to it:</p>
 
   <ul>
@@ -42,7 +44,7 @@
   </ul>
 
   <% else %>
-    <p>The apocolypse is upon us becuase there are no cities to show. Flee mortal while you still can.</p>
+    <p>The apocolypse is upon us because there are no cities to show. Flee mortal while you still can.</p>
 <% end %>
 <br>
 <br>
