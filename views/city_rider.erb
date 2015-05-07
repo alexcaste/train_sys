@@ -1,0 +1,20 @@
+<h1>Information for the city of <%= @city.c_name() %>.</h1>
+
+<%  if @city.trains().any?() %>
+
+  <h4> Oh, you want to know what trains come to the city of <%= @city.c_name() %>, eh?</h4>
+
+  <ul>
+    <% @city.trains().each() do |train| %>
+      <li>Train: <%= train.t_name() %>.  Time: <%= train.time(@city.id()) %>.</li>
+    <% end %>
+  </ul>
+
+<% else %>
+
+  <p>No one goes to this janky ass place.</p>
+
+<% end %>
+
+<hr>
+<a href="/rider">Return to the Passenger page</a>

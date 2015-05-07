@@ -16,4 +16,14 @@ describe(Ticket) do
       expect(joker.stops()).to(eq([portland, baltimore]))
     end
   end
+
+  describe('#tik_name') do
+    it('returns the name associated with the ticket') do
+      rock = Train.new({t_name: "Rocks", id: nil})
+      rock.save()
+      ticket = Ticket.new(train_id: rock.id(), id: nil)
+      ticket.save()
+      expect(ticket.tik_name()).to(eq("Rocks"))
+    end
+  end
 end

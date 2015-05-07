@@ -2,6 +2,7 @@ require("sinatra")
 require("sinatra/reloader")
 require("./lib/train")
 require("./lib/city")
+require ("./lib/ticket")
 also_reload("lib/**/*.rb")
 require("pg")
 
@@ -107,4 +108,33 @@ patch('/city_edit/:id') do
   @city.update({c_name: c_name, id: city_id})
   @trains = Train.all()
   erb(:city_info)
+end
+
+get('/rider') do
+  @trains = Train.all()
+  @cities = City.all()
+  @tickets = Ticket.all()
+  erb(:rider)
+end
+
+get('/trains_rider/:id') do
+  @train = Train.find(params.fetch("id").to_i())
+  @cities = City.all()
+  erb(:train_rider)
+end
+
+get('/cities_rider/:id') do
+  @city = City.find(params.fetch("id").to_i())
+  @trains = Train.all()
+  erb(:city_rider)
+end
+
+post('/buy_ticket') do
+  train_id = params.fetch('train_id')
+  ticket = Ticket.new({train_id: train_id, id: nil})
+  ticket.save()
+  @tickets = Ticket.all()
+  @trains = Train.all()
+  @cities = City.all()
+  erb(:rider)
 end

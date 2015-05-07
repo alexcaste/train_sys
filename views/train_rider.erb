@@ -1,0 +1,17 @@
+<h1>Information for the <%= @train.t_name() %> Line.</h1>
+
+<%  if @train.cities().any?() %>
+
+  <h4> Fine, I'll tell you which cities the <%= @train.t_name() %> Line goes to: </h4>
+
+  <ul>
+    <% @train.cities().each() do |city| %>
+      <li>City: <%= city.c_name() %>.  Time: <%= @train.time(city.id()) %>.</li>
+    <% end %>
+  </ul>
+
+<% else %>
+
+  <p>This train don't go nowhere, no how.</p>
+
+<% end %>

@@ -1,0 +1,72 @@
+<h1>Train Servant Worship Portal<h1>
+<hr>
+
+<h4> You are commanded by the cruel, unpredictable will of the train operator.
+  <p>Bow before your master, whelp.</p>
+</h4>
+
+<hr>
+<h4>Here be thy trains</h4>
+
+<% if @trains.any?() %>
+  <p>Click on train to see the cities they go to:</p>
+
+  <ul>
+    <% @trains.each do |train| %>
+    <li><a href="/trains_rider/<%= train.id() %>"><%= train.t_name() %></a></li>
+    <% end %>
+  </ul>
+
+  <% else %>
+    <p>We have run out of trains.  Please insert 25 cents to continue or add a train.</p>
+<% end %>
+
+
+
+<hr>
+
+<h4>Pick a city, any city...</h4>
+
+<% if @cities.any?() %>
+  <p>Click on city to see which trains go to it:</p>
+
+  <ul>
+    <% @cities.each do |city| %>
+    <li><a href="/cities_rider/<%= city.id() %>"><%= city.c_name() %></a></li>
+    <% end %>
+  </ul>
+
+  <% else %>
+    <p>The apocalypse is upon us because there are no cities to show. Flee mortal while you still can.</p>
+<% end %>
+<hr>
+
+<h4>Buy a ticket for a train.</h4>
+
+<form action="/buy_ticket" method="post">
+  <label for="train_id">Select a Train</label>
+  <select id='train_id' name='train_id' type='text'>
+    <% @trains.each() do |train| %>
+      <option value="<%= train.id()%>"> <%= train.t_name() %> </option>
+    <% end %>
+  </select>
+  <button type = "submit"> Add </button>
+</form>
+
+<br>
+<h4>TICKETS</h4>
+
+<% if @tickets.any?() %>
+  <p>Click on city to see which trains go to it:</p>
+
+  <ul>
+    <% @tickets.each() do |ticket| %>
+    <li><a href="/ticket/<%= ticket.id() %>"><%= ticket.tik_name() %></a></li>
+    <% end %>
+  </ul>
+
+  <% else %>
+    <p>The apocalypse is upon us because there are no cities to show. Flee mortal while you still can.</p>
+<% end %>
+<hr>
+<a href = "/">Home</a>

@@ -49,7 +49,7 @@ describe(Train) do
     end
 
 
-    it("lets you add a train to a train") do
+    it("lets you add a city to a train") do
       baltimore = City.new({c_name: "Baltimore", id: nil})
       baltimore.save()
       portland = City.new({c_name: "Portland", id: nil})
@@ -92,8 +92,8 @@ describe(Train) do
       rock = Train.new({t_name: "Rocks", id: nil})
       rock.save()
       rock.update({city_ids: [portland.id()]})
-      rock.add_time({time: 1200, city_id: portland.id()})
-      expect(rock.time(portland.id())).to(eq(1200))
+      rock.add_time({city_id: portland.id(),time: 12})
+      expect(rock.time(portland.id())).to(eq(12))
     end
   end
 
@@ -104,8 +104,8 @@ describe(Train) do
       rock = Train.new({t_name: "Rocks", id: nil})
       rock.save()
       rock.update({city_ids: [portland.id()]})
-      rock.add_time({time: 1200, city_id: portland.id()})
-      expect(rock.time(portland.id())).to(eq(1200))
+      rock.add_time({city_id: portland.id(),time: 12})
+      expect(rock.time(portland.id())).to(eq(12))
     end
   end
 
@@ -120,7 +120,7 @@ describe(Train) do
       rock.update({city_ids: [portland.id(), baltimore.id()]})
       rock.add_time({time: 1200, city_id: portland.id()})
       rock.add_time({time: 1000, city_id: baltimore.id()})
-      expect(rock.time_table()).to(eq(["Portland", 1200, "Baltimore", 1000]))      
+      expect(rock.time_table()).to(eq(["Portland", 1200, "Baltimore", 1000]))
     end
   end
 end

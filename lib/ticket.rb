@@ -46,4 +46,9 @@ class Ticket
     train.cities()
   end
 
+  define_method(:tik_name) do
+    train = Train.find(@train_id)
+    train.t_name()
+  end
+
 end
