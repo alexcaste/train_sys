@@ -1,0 +1,20 @@
+<h1>Time Table for the ticket you bought:</h1>
+
+
+<%  if @train.cities().any?() %>
+
+  <h4> Here is what stops this ticket is good for: </h4>
+
+  <ul>
+    <% @train.cities().each() do |city| %>
+      <li>City: <%= city.c_name() %>.  Time: <%= @train.time(city.id()) %>.</li>
+    <% end %>
+  </ul>
+
+<% else %>
+<br>
+<h4> Fooled you sucker.  This ticket ain't good for nuttin'.</h4>
+<% end %>
+<hr>
+
+<a href = "/rider">Back to the Passenger Worship Portal</a>

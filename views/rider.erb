@@ -32,7 +32,8 @@
 
   <ul>
     <% @cities.each do |city| %>
-    <li><a href="/cities_rider/<%= city.id() %>"><%= city.c_name() %></a></li>
+    <li><a href="/cities_rider/<%= city.id() %>"><%= city.c_name() %></a>
+    </li>
     <% end %>
   </ul>
 
@@ -57,16 +58,21 @@
 <h4>TICKETS</h4>
 
 <% if @tickets.any?() %>
-  <p>Click on city to see which trains go to it:</p>
+  <p>Click on ticket to see its schedule:</p>
 
   <ul>
-    <% @tickets.each() do |ticket| %>
-    <li><a href="/ticket/<%= ticket.id() %>"><%= ticket.tik_name() %></a></li>
+    <% @tickets.each() do |a_ticket| %>
+    <li><a href="/ticket/<%= a_ticket.id() %>"><%= a_ticket.tik_name() %></a>
+      <form action ="/ticket/<%= a_ticket.id() %>" method="post">
+        <input name ="_method" type ="hidden" value="delete">
+        <button type = "submit">Delete</button>
+      </form>
+    </li>
     <% end %>
   </ul>
 
   <% else %>
-    <p>The apocalypse is upon us because there are no cities to show. Flee mortal while you still can.</p>
+    <p>You obviously too broke to afford a ticket.  Try walking, you welfare sucking bastard.</p>
 <% end %>
 <hr>
 <a href = "/">Home</a>

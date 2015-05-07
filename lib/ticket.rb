@@ -12,7 +12,7 @@ class Ticket
     returned_ticket = DB.exec("SELECT * FROM tickets;")
     tickets = []
     returned_ticket.each() do |ticket_obj|
-      train_id = ticket_obj.fetch("train_id")
+      train_id = ticket_obj.fetch("train_id").to_i()
       id = ticket_obj.fetch("id").to_i()
       tickets.push(Ticket.new({:train_id => train_id, :id =>id}))
     end
@@ -43,12 +43,16 @@ class Ticket
     t_name = result.first().fetch("t_name")
     id = result.first().fetch("id").to_i()
     train = Train.new(t_name: t_name, id: id)
-    train.cities()
+    train.time_table()
   end
 
   define_method(:tik_name) do
     train = Train.find(@train_id)
     train.t_name()
+  end
+
+  define_method(:delete) do
+    DB.exec("DELETE FROM tickets WHERE id =#{self.id()};")
   end
 
 end

@@ -138,3 +138,18 @@ post('/buy_ticket') do
   @cities = City.all()
   erb(:rider)
 end
+
+delete('/ticket/:id') do
+  @ticket = Ticket.find(params.fetch("id").to_i)
+  @ticket.delete()
+  @trains = Train.all()
+  @cities = City.all()
+  @tickets = Ticket.all()
+  erb(:rider)
+end
+
+get('/ticket/:id') do
+  @ticket = Ticket.find(params.fetch("id").to_i())
+  @train = Train.find(@ticket.train_id())
+  erb(:ticket_info)
+end

@@ -26,4 +26,18 @@ describe(Ticket) do
       expect(ticket.tik_name()).to(eq("Rocks"))
     end
   end
+
+  describe(".all") do
+    it("starts off with no cities") do
+      expect(City.all()).to(eq([]))
+    end
+
+    it("shows saved tickets") do
+      rock = Train.new({t_name: "Rocks", id: nil})
+      rock.save()
+      ticket = Ticket.new(train_id: rock.id(), id: nil)
+      ticket.save()
+    expect(Ticket.all()).to(eq([ticket]))
+    end
+  end
 end

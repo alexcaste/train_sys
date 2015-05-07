@@ -76,15 +76,15 @@ attr_reader(:t_name, :id)
   end
 
   define_method(:time_table) do
-    times = []
+    times = {}
     cities = self.cities()
     cities.each() do |city|
       c_id = city.id()
       result = DB.exec("SELECT * FROM cities WHERE id = #{c_id};")
       city_id = result.first().fetch("id")
       city_name = result.first.fetch("c_name")
-      times.push(city_name)
-      times.push(self.time(city_id))
+      times.store(city_name, self.time(city_id))
+      # times.push({time: self.time(city_id)})
     end
     times
   end
